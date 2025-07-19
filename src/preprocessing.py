@@ -1,4 +1,5 @@
 # src/preprocessing.py
+import pandas as pd
 def drop_missing(df):
     return df.dropna()
 
