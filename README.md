@@ -131,5 +131,3 @@ Transformed datasets are saved as CSV files in the `data/` directory for use in 
 Proceed to the modeling notebook (`05_modeling.ipynb`) for training and evaluating machine learning models.
 
 ---
-
-*Feel free to update this README as the project evolves.*
