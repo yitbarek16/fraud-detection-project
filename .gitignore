@@ -1,0 +1,5 @@
+# Ignore all files in the data  because they are large and not needed for version control
+/data/*
+
+# keep the data folder 
+!data/
