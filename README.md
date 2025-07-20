@@ -2,7 +2,6 @@
 
 This project detects fraudulent transactions using machine learning and explainability techniques like SHAP. It covers data ingestion, cleaning, feature engineering, modeling, and interpretation.
 
-
 ## Project Structure
 
 ```
@@ -14,15 +13,15 @@ fraud-detection-project/
 ├── notebooks/
 │   ├── 01_data_loading_cleaning.ipynb
 │   ├── 02_eda.ipynb
-|   ├── 03_feature_engineering.ipynb
-|   ├── 04_data_transformation.ipynb
+│   ├── 03_feature_engineering.ipynb
+│   ├── 04_data_transformation.ipynb
 ├── src/
 │   ├── __init__.py
 │   ├── data_loader.py
 │   ├── preprocessing.py
 │   ├── feature_engineering.py
 │   └── eda.py
-|
+│
 ├── requirements.txt
 └── README.md
 ```
@@ -44,6 +43,24 @@ fraud-detection-project/
 
 3. **Ensure data files** are placed in the `data/` directory at the project root.
 
+---
+
+## Data Cleaning & Preprocessing
+
+For cleaning, I:
+- Dropped missing values
+- Removed duplicate records
+- Fixed datetime formats
+
+I handled these steps using functions in `src/preprocessing.py`:
+
+```python
+from src.preprocessing import drop_missing, remove_duplicates, fix_datetime
+
+fraud_df = drop_missing(fraud_df)
+fraud_df = remove_duplicates(fraud_df)
+fraud_df = fix_datetime(fraud_df)
+```
 ---
 
 ## Exploratory Data Analysis (EDA)
@@ -78,7 +95,7 @@ fraud-detection-project/
 
 ## Feature Engineering
 
-Engineered features include:
+I engineered features including:
 
 - **Time-based:**  
   - `hour_of_day`, `day_of_week`, `time_since_signup`
@@ -94,31 +111,32 @@ The resulting dataset is saved as:
 
 ---
 
-## Data Cleaning & Preprocessing
+## Data Transformation
 
-Cleaning steps include:
-
-- Dropping missing values
-- Removing duplicate records
-- Fixing datetime formats
-
-These are handled by functions in `src/preprocessing.py`:
-
-```python
-from src.preprocessing import drop_missing, remove_duplicates, fix_datetime
-
-fraud_df = drop_missing(fraud_df)
-fraud_df = remove_duplicates(fraud_df)
-fraud_df = fix_datetime(fraud_df)
-```
-
-Data is then transformed for modeling. This includes:
+I transformed the data for modeling by:
 
 - Feature scaling (e.g., StandardScaler or MinMaxScaler)
 - Encoding categorical variables
 - Splitting data into train/test sets
+  
+###  Handling Class Imbalance
 
-Transformed datasets are saved as CSV files in the `data/` directory for use in modeling notebooks:
+Fraud detection is inherently an imbalanced classification problem. In this dataset:
+
+- **Non-Fraud class (0):** ~90.6%
+- **Fraud class (1):** ~9.4%
+
+This imbalance can cause models to bias heavily toward predicting the majority class (non-fraud).
+
+To address this:
+
+- I applied **SMOTE (Synthetic Minority Oversampling Technique)** to the training data to synthetically generate more fraud cases.
+- SMOTE was applied **only on the training set** to avoid data leakage into evaluation.
+- For some models (e.g., Logistic Regression), I also experimented with using `class_weight='balanced'` to account for imbalance during training.
+
+This improves the model’s sensitivity to fraudulent transactions and ensures fairer evaluation.
+
+I saved the transformed datasets as CSV files in the `data/` directory for use in modeling notebooks:
 
 - `X_train_scaled.csv`
 - `X_test_scaled.csv`
@@ -128,6 +146,6 @@ Transformed datasets are saved as CSV files in the `data/` directory for use in 
 ---
 
 **Next steps:**  
-Proceed to the modeling notebook (`05_modeling.ipynb`) for training and evaluating machine learning models.
+I proceed to the modeling notebook (`05_modeling.ipynb`) for training and evaluating machine learning models.
 
 ---
