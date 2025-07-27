@@ -10,11 +10,13 @@ fraud-detection-project/
 │   ├── Fraud_Data.csv
 │   ├── IpAddress_to_Country.csv
 │   └── creditcard.csv
+├── models/
 ├── notebooks/
 │   ├── 01_data_loading_cleaning.ipynb
 │   ├── 02_eda.ipynb
 │   ├── 03_feature_engineering.ipynb
 │   ├── 04_data_transformation.ipynb
+|   └── 05_modeling.ipynb
 ├── src/
 │   ├── __init__.py
 │   ├── data_loader.py
