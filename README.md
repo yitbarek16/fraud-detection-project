@@ -144,8 +144,45 @@ I saved the transformed datasets as CSV files in the `data/` directory for use i
 - `y_test.csv`
 
 ---
+## Model Comparison and Selection
 
-**Next steps:**  
-I proceed to the modeling notebook (`05_modeling.ipynb`) for training and evaluating machine learning models.
+I evaluated two models on the fraud detection task:
+
+- **Logistic Regression** (baseline model)
+- **XGBoost** (ensemble model)
+
+### Performance Summary
+
+| Metric             | Logistic Regression | XGBoost        |
+|--------------------|---------------------|----------------|
+| F1 Score           | 0.5871              | **0.6010**     |
+| AUC-PR             | **0.6676**          | 0.6611         |
+| Accuracy           | 0.92                | **0.93**       |
+| Precision (Class 1)| 0.57                | **0.63**       |
+| Recall (Class 1)   | **0.61**            | 0.57           |
+
+### Final Model Selection: **XGBoost**
+
+Despite Logistic Regression performing slightly better in AUC-PR, **XGBoost** is chosen as the final model because:
+
+- It achieved a higher **F1 Score**, indicating better balance between precision and recall.
+- It had **higher precision**, meaning fewer false alarms.
+- It captured more nuanced patterns due to its ability to handle non-linear relationships.
+
+In fraud detection, both high precision and reasonable recall are vital, making **XGBoost the preferred model**.
 
 ---
+
+---
+
+## Next Steps: Model Explainability
+
+My next step is to interpret the predictions of the final XGBoost model using SHAP (Shapley Additive Explanations):
+
+- **Global Interpretability:**  
+  I will use SHAP summary plots to visualize which features most influence fraud predictions across the dataset.
+
+- **Local Interpretability:**  
+  I will generate SHAP force plots to explain individual predictions and understand why specific transactions are flagged as fraud.
+
+This will help me validate the model’s decisions,
