@@ -16,7 +16,8 @@ fraud-detection-project/
 │   ├── 02_eda.ipynb
 │   ├── 03_feature_engineering.ipynb
 │   ├── 04_data_transformation.ipynb
-|   └── 05_modeling.ipynb
+|   ├── 05_modeling.ipynb
+|   └── 06_model_explainability.ipynb
 ├── src/
 │   ├── __init__.py
 │   ├── data_loader.py
@@ -175,16 +176,16 @@ In fraud detection, both high precision and reasonable recall are vital, making 
 
 ---
 
+## Model Explainability
+
+I used SHAP (Shapley Additive Explanations) to interpret the predictions of my final XGBoost model.
+
+- **Global insights:**  
+  SHAP summary plots revealed that `transaction_velocity` and `time_since_signup` are the most important feature driving fraud predictions, followed by traffic source and country risk.
+
+- **Local explanations:**  
+  SHAP force plots helped me understand why specific transactions were classified as fraud, providing transparency for individual predictions.
+
+This step confirmed that my model makes decisions based on meaningful patterns and supports actionable insights for fraud prevention.
+
 ---
-
-## Next Steps: Model Explainability
-
-My next step is to interpret the predictions of the final XGBoost model using SHAP (Shapley Additive Explanations):
-
-- **Global Interpretability:**  
-  I will use SHAP summary plots to visualize which features most influence fraud predictions across the dataset.
-
-- **Local Interpretability:**  
-  I will generate SHAP force plots to explain individual predictions and understand why specific transactions are flagged as fraud.
-
-This will help me validate the model’s decisions,
